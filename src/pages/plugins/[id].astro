@@ -13,14 +13,14 @@ const { Content } = await render(plugin);
 const { title, tagline, version, platforms, mcVersions, tags, accent, icon, screenshots, links } = plugin.data;
 
 const linkEntries = Object.entries(links).filter(([, href]) => href) as [string, string][];
-// Il link di download (se presente) è il pulsante principale.
+// The download link (if any) is the primary button.
 const primary = linkEntries.find(([k]) => k === 'download') ?? linkEntries[0];
 const secondary = linkEntries.filter((l) => l !== primary);
 ---
 
 <Layout title={title} description={tagline}>
   <article class="wrap page" style={`--accent: ${accent}`}>
-    <a class="back" href={url('/#plugins')}>← Tutti i plugin</a>
+    <a class="back" href={url('/#plugins')}>← All plugins</a>
 
     <header class="top">
       <div class="icon" aria-hidden="true">

@@ -1,4 +1,4 @@
-/** Prepende il `base` di Astro (necessario su GitHub Pages nei repo di progetto). */
+/** Prepends Astro's `base` (needed on GitHub Pages for project repos). */
 export function url(path = '/'): string {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   return `${base}/${path.replace(/^\//, '')}`;
@@ -11,5 +11,5 @@ export const linkLabels: Record<string, string> = {
   hangar: 'Hangar',
   curseforge: 'CurseForge',
   download: 'Download',
-  docs: 'Documentazione',
+  docs: 'Documentation',
 };

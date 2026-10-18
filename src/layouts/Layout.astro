@@ -9,14 +9,14 @@ interface Props {
 
 const {
   title,
-  description = 'Portfolio dei miei plugin per Minecraft: download, funzionalità e documentazione.',
+  description = 'Portfolio of my Minecraft plugins: downloads, features and documentation.',
 } = Astro.props;
 
 const pageTitle = title ? `${title} · Minecraft Plugins` : 'Minecraft Plugins · Portfolio';
 ---
 
 <!doctype html>
-<html lang="it">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,9 +38,9 @@ const pageTitle = title ? `${title} · Minecraft Plugins` : 'Minecraft Plugins �
           </svg>
           <span>Plugins</span>
         </a>
-        <nav aria-label="Principale">
-          <a href={url('/#plugins')}>Plugin</a>
-          <a href={url('/#about')}>Chi sono</a>
+        <nav aria-label="Main">
+          <a href={url('/#plugins')}>Plugins</a>
+          <a href={url('/#about')}>About</a>
         </nav>
       </div>
     </header>
@@ -51,7 +51,7 @@ const pageTitle = title ? `${title} · Minecraft Plugins` : 'Minecraft Plugins �
 
     <footer class="site-footer">
       <div class="wrap">
-        <p>© {new Date().getFullYear()} · Non affiliato a Mojang Studios o Microsoft. Minecraft è un marchio di Mojang AB.</p>
+        <p>© {new Date().getFullYear()} · Not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang AB.</p>
       </div>
     </footer>
   </body>

@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
-// Se usi il repo "goldeneas.github.io" (sito utente) metti base: '/'.
+// If you use the "goldeneas.github.io" repo (user site), set base: '/'.
 export default defineConfig({
   site: 'https://goldeneas.github.io',
   base: '/MinecraftPortfolio',

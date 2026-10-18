@@ -1,17 +1,17 @@
 # Minecraft Plugins — Portfolio
 
-Sito statico (Astro) pubblicato su GitHub Pages.
+Static site (Astro) published on GitHub Pages.
 
-## Aggiungere un plugin
+## Adding a plugin
 
-Crea un file in `src/content/plugins/nome-plugin.md` copiando uno esistente. Il front matter
-(titolo, versione, piattaforme, link, colore…) è validato da `src/content.config.ts`; il corpo
-Markdown diventa la pagina di dettaglio. Home e filtri si aggiornano da soli.
+Create a file in `src/content/plugins/plugin-name.md` by copying an existing one. The front matter
+(title, version, platforms, links, colour…) is validated by `src/content.config.ts`; the Markdown
+body becomes the detail page. The home page and filters update automatically.
 
-Immagini (icona, screenshot): mettile in `public/plugins/<nome>/` e referenziale come
-`/plugins/<nome>/icon.png`.
+Images (icon, screenshots): put them in `public/plugins/<name>/` and reference them as
+`/plugins/<name>/icon.png`.
 
-## Sviluppo
+## Development
 
 ```sh
 npm install
@@ -22,7 +22,7 @@ npm run build
 ## Deploy
 
 1. Repo → *Settings → Pages → Source: **GitHub Actions***.
-2. Ogni push su `main` ricostruisce e pubblica il sito (`.github/workflows/deploy.yml`).
+2. Every push to `main` rebuilds and publishes the site (`.github/workflows/deploy.yml`).
 
-Il sito sarà su `https://goldeneas.github.io/MinecraftPortfolio/`. Se rinomini il repo, o usi
-`goldeneas.github.io`, aggiorna `base` in `astro.config.mjs`.
+The site will be at `https://goldeneas.github.io/MinecraftPortfolio/`. If you rename the repo, or use
+`goldeneas.github.io`, update `base` in `astro.config.mjs`.

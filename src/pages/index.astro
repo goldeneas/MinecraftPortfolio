@@ -11,27 +11,27 @@ const platforms = [...new Set(plugins.flatMap((p) => p.data.platforms))].sort();
   <section class="hero">
     <div class="wrap">
       <p class="eyebrow">Minecraft Developer</p>
-      <h1>Plugin che rendono il tuo server <em>unico</em>.</h1>
+      <h1>Plugins that make your server <em>unique</em>.</h1>
       <p class="lead">
-        Una raccolta dei plugin che sviluppo per Minecraft: leggeri, configurabili e mantenuti nel tempo.
+        A collection of the Minecraft plugins I build: lightweight, configurable and actively maintained.
       </p>
       <div class="cta">
-        <a class="btn primary" href="#plugins">Scopri i plugin</a>
+        <a class="btn primary" href="#plugins">Browse plugins</a>
         <a class="btn" href="https://github.com/goldeneas">GitHub</a>
       </div>
       <dl class="stats">
-        <div><dt>Plugin</dt><dd>{plugins.length}</dd></div>
-        <div><dt>Piattaforme</dt><dd>{platforms.length}</dd></div>
+        <div><dt>Plugins</dt><dd>{plugins.length}</dd></div>
+        <div><dt>Platforms</dt><dd>{platforms.length}</dd></div>
       </dl>
     </div>
   </section>
 
   <section id="plugins" class="wrap section">
     <div class="head">
-      <h2>I miei plugin</h2>
+      <h2>My plugins</h2>
       {platforms.length > 1 && (
-        <div class="filters" role="group" aria-label="Filtra per piattaforma">
-          <button class="chip active" data-filter="all" aria-pressed="true">Tutti</button>
+        <div class="filters" role="group" aria-label="Filter by platform">
+          <button class="chip active" data-filter="all" aria-pressed="true">All</button>
           {platforms.map((p) => <button class="chip" data-filter={p} aria-pressed="false">{p}</button>)}
         </div>
       )}
@@ -42,12 +42,12 @@ const platforms = [...new Set(plugins.flatMap((p) => p.data.platforms))].sort();
   </section>
 
   <section id="about" class="wrap section about">
-    <h2>Chi sono</h2>
+    <h2>About</h2>
     <p>
-      Sono uno sviluppatore di plugin per Minecraft. Scrivo codice pulito, curo la documentazione e
-      rispondo alle segnalazioni. Trovi il codice sorgente di ogni plugin su GitHub.
+      I'm a Minecraft plugin developer. I write clean code, keep the documentation up to date and
+      answer bug reports. The source code of every plugin is available on GitHub.
     </p>
-    <p><a class="btn" href="https://github.com/goldeneas">Seguimi su GitHub</a></p>
+    <p><a class="btn" href="https://github.com/goldeneas">Follow me on GitHub</a></p>
   </section>
 </Layout>
 

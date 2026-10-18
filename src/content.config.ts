@@ -8,18 +8,18 @@ const plugins = defineCollection({
     title: z.string(),
     tagline: z.string(),
     version: z.string(),
-    // Piattaforma/loader: Paper, Spigot, Fabric, Forge, NeoForge, Velocity...
+    // Platform/loader: Paper, Spigot, Fabric, Forge, NeoForge, Velocity...
     platforms: z.array(z.string()),
-    // Versioni di Minecraft supportate, es. "1.20 – 1.21"
+    // Supported Minecraft versions, e.g. "1.20 – 1.21"
     mcVersions: z.string(),
     tags: z.array(z.string()).default([]),
-    // Colore d'accento della card (esadecimale)
+    // Card accent colour (hex)
     accent: z.string().default('#3ddc84'),
-    // Facoltativi: immagini dentro /public (es. "/plugins/nome/icon.png")
+    // Optional: images inside /public (e.g. "/plugins/name/icon.png")
     icon: z.string().optional(),
     screenshots: z.array(z.object({ src: z.string(), alt: z.string() })).default([]),
     featured: z.boolean().default(false),
-    // Più basso = prima
+    // Lower = first
     order: z.number().default(100),
     links: z
       .object({
