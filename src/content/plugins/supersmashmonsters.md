@@ -2,7 +2,7 @@
 title: "SuperSmashMobs"
 tagline: "Arena PvP where you play as iconic Minecraft mobs, inspired by Mineplex's Super Smash Mobs."
 version: "0.1.0-SNAPSHOT"
-platforms: [Paper]
+platforms: [Paper, Spigot]
 mcVersions: "1.21+"
 tags: [minigame, pvp, arena, kits]
 accent: "#7C5CFF"
