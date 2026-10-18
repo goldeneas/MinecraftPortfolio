@@ -1,4 +1,4 @@
-@import '@fontsource/press-start-2p';
+@import '@fontsource-variable/pixelify-sans';
 @import '@fontsource-variable/inter';
 
 :root {
@@ -13,7 +13,7 @@
   --gold: #f5c542;
   --accent: var(--emerald);
   --px: 4px;
-  --font-pixel: 'Press Start 2P', ui-monospace, monospace;
+  --font-pixel: 'Pixelify Sans Variable', ui-monospace, monospace;
   --font-body: 'Inter Variable', system-ui, sans-serif;
   --wrap: 1080px;
   color-scheme: dark;
@@ -38,8 +38,8 @@ a:hover { text-decoration: underline; }
 
 .wrap { width: min(var(--wrap), 100% - 32px); margin-inline: auto; }
 
-h1, h2, h3 { font-family: var(--font-pixel); font-weight: 400; line-height: 1.4; margin: 0; }
-h2 { font-size: clamp(1rem, 2.4vw, 1.35rem); }
+h1, h2, h3 { font-family: var(--font-pixel); font-weight: 600; line-height: 1.2; margin: 0; }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
 
 /* Bordo "a pixel" stile interfaccia di Minecraft */
 .pixel-box {
