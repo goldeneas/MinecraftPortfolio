@@ -1,0 +1,119 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PluginCard from '../components/PluginCard.astro';
+
+const plugins = (await getCollection('plugins')).sort((a, b) => a.data.order - b.data.order);
+const platforms = [...new Set(plugins.flatMap((p) => p.data.platforms))].sort();
+---
+
+<Layout>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Minecraft Developer</p>
+      <h1>Plugin che rendono il tuo server <em>unico</em>.</h1>
+      <p class="lead">
+        Una raccolta dei plugin che sviluppo per Minecraft: leggeri, configurabili e mantenuti nel tempo.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#plugins">Scopri i plugin</a>
+        <a class="btn" href="https://github.com/goldeneas">GitHub</a>
+      </div>
+      <dl class="stats">
+        <div><dt>Plugin</dt><dd>{plugins.length}</dd></div>
+        <div><dt>Piattaforme</dt><dd>{platforms.length}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="plugins" class="wrap section">
+    <div class="head">
+      <h2>I miei plugin</h2>
+      {platforms.length > 1 && (
+        <div class="filters" role="group" aria-label="Filtra per piattaforma">
+          <button class="chip active" data-filter="all" aria-pressed="true">Tutti</button>
+          {platforms.map((p) => <button class="chip" data-filter={p} aria-pressed="false">{p}</button>)}
+        </div>
+      )}
+    </div>
+    <div class="grid" id="grid">
+      {plugins.map((plugin) => <PluginCard plugin={plugin} />)}
+    </div>
+  </section>
+
+  <section id="about" class="wrap section about">
+    <h2>Chi sono</h2>
+    <p>
+      Sono uno sviluppatore di plugin per Minecraft. Scrivo codice pulito, curo la documentazione e
+      rispondo alle segnalazioni. Trovi il codice sorgente di ogni plugin su GitHub.
+    </p>
+    <p><a class="btn" href="https://github.com/goldeneas">Seguimi su GitHub</a></p>
+  </section>
+</Layout>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  const cards = document.querySelectorAll<HTMLElement>('#grid .card');
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const filter = chip.dataset.filter!;
+      chips.forEach((c) => {
+        const on = c === chip;
+        c.classList.toggle('active', on);
+        c.setAttribute('aria-pressed', String(on));
+      });
+      cards.forEach((card) => {
+        const list = (card.dataset.platforms ?? '').split('|');
+        card.hidden = filter !== 'all' && !list.includes(filter);
+      });
+    });
+  });
+</script>
+
+<style>
+  .hero {
+    padding-block: 96px 72px;
+    background:
+      linear-gradient(to bottom, transparent 60%, var(--bg)),
+      repeating-conic-gradient(from 0deg at 50% 50%, #0e141b 0 25%, #0b0f14 0 50%) 0 0 / 32px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    margin: 0 0 16px;
+    font-family: var(--font-pixel);
+    font-size: 0.7rem;
+    color: var(--gold);
+  }
+  h1 {
+    max-width: 18ch;
+    font-size: clamp(1.4rem, 4.5vw, 2.4rem);
+    line-height: 1.5;
+  }
+  h1 em { font-style: normal; color: var(--emerald); }
+  .lead { max-width: 52ch; margin: 20px 0 28px; color: var(--muted); font-size: 1.1rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: 14px; }
+  .stats { display: flex; gap: 40px; margin: 48px 0 0; }
+  .stats div { display: flex; flex-direction: column-reverse; }
+  .stats dt { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .stats dd { margin: 0; font-family: var(--font-pixel); font-size: 1.4rem; color: var(--text); }
+
+  .section { padding-top: 72px; }
+  .head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 6px 12px;
+    font: 600 0.8rem var(--font-body);
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .chip:hover { color: var(--text); }
+  .chip.active { color: #06210f; background: var(--emerald); border-color: var(--emerald); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 24px; }
+  .grid :global(.card[hidden]) { display: none; }
+
+  .about p { max-width: 60ch; color: var(--muted); }
+  .about h2 { margin-bottom: 16px; }
+</style>

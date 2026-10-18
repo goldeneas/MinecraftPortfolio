@@ -1,0 +1,95 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { linkLabels, url } from '../../utils';
+
+export async function getStaticPaths() {
+  const plugins = await getCollection('plugins');
+  return plugins.map((plugin) => ({ params: { id: plugin.id }, props: { plugin } }));
+}
+
+const { plugin } = Astro.props;
+const { Content } = await render(plugin);
+const { title, tagline, version, platforms, mcVersions, tags, accent, icon, screenshots, links } = plugin.data;
+
+const linkEntries = Object.entries(links).filter(([, href]) => href) as [string, string][];
+// Il link di download (se presente) è il pulsante principale.
+const primary = linkEntries.find(([k]) => k === 'download') ?? linkEntries[0];
+const secondary = linkEntries.filter((l) => l !== primary);
+---
+
+<Layout title={title} description={tagline}>
+  <article class="wrap page" style={`--accent: ${accent}`}>
+    <a class="back" href={url('/#plugins')}>← Tutti i plugin</a>
+
+    <header class="top">
+      <div class="icon" aria-hidden="true">
+        {icon ? <img src={url(icon)} alt="" /> : <span>{title.charAt(0)}</span>}
+      </div>
+      <div>
+        <h1>{title}</h1>
+        <p class="tagline">{tagline}</p>
+        <div class="meta">
+          {platforms.map((p) => <span class="tag platform">{p}</span>)}
+          <span class="tag">MC {mcVersions}</span>
+          <span class="tag">v{version}</span>
+          {tags.map((t) => <span class="tag">#{t}</span>)}
+        </div>
+      </div>
+    </header>
+
+    {primary && (
+      <div class="actions">
+        <a class="btn primary" href={primary[1]} rel="noopener">{linkLabels[primary[0]]}</a>
+        {secondary.map(([key, href]) => <a class="btn" href={href} rel="noopener">{linkLabels[key]}</a>)}
+      </div>
+    )}
+
+    {screenshots.length > 0 && (
+      <div class="shots">
+        {screenshots.map((s) => <img src={url(s.src)} alt={s.alt} loading="lazy" />)}
+      </div>
+    )}
+
+    <div class="prose pixel-box">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .page { padding-top: 40px; }
+  .back { font-size: 0.9rem; font-weight: 600; }
+  .top { display: flex; gap: 24px; align-items: center; margin: 28px 0 24px; }
+  .icon {
+    flex: none;
+    width: 88px;
+    height: 88px;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--accent) 22%, var(--bg));
+    box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.35), inset 0 6px 0 rgba(255, 255, 255, 0.12);
+  }
+  .icon span { font-family: var(--font-pixel); font-size: 2.2rem; color: var(--accent); }
+  .icon img { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+  h1 { font-size: clamp(1.1rem, 3.5vw, 1.8rem); }
+  .tagline { margin: 10px 0 14px; color: var(--muted); font-size: 1.05rem; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 32px; }
+  .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px; margin-bottom: 32px; }
+  .shots img { width: 100%; height: auto; border: 1px solid var(--border); }
+  .prose { padding: 28px 32px; }
+  .prose :global(h2) { margin: 32px 0 14px; font-size: 0.95rem; color: var(--accent); }
+  .prose :global(h3) { margin: 20px 0 8px; font-size: 0.8rem; color: var(--text); }
+  .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(p), .prose :global(li) { color: #c9d5e3; }
+  .prose :global(code) { padding: 1px 6px; background: var(--bg); border: 1px solid var(--border); font-size: 0.88em; }
+  .prose :global(pre) { overflow-x: auto; padding: 16px; background: var(--bg); border: 1px solid var(--border); }
+  .prose :global(pre code) { padding: 0; border: 0; background: none; }
+  .prose :global(table) { border-collapse: collapse; width: 100%; }
+  .prose :global(th), .prose :global(td) { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+  @media (max-width: 560px) {
+    .top { flex-direction: column; align-items: flex-start; }
+    .prose { padding: 20px; }
+  }
+</style>

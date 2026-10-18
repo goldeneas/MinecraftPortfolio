@@ -1,0 +1,94 @@
+---
+import '../styles/global.css';
+import { url } from '../utils';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Portfolio dei miei plugin per Minecraft: download, funzionalità e documentazione.',
+} = Astro.props;
+
+const pageTitle = title ? `${title} · Minecraft Plugins` : 'Minecraft Plugins · Portfolio';
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="brand" href={url('/')}>
+          <svg viewBox="0 0 8 8" width="22" height="22" aria-hidden="true" shape-rendering="crispEdges">
+            <rect width="8" height="8" fill="#5b3a1e" />
+            <rect width="8" height="3" fill="#3ddc84" />
+            <rect x="1" y="3" width="1" height="1" fill="#3ddc84" />
+            <rect x="5" y="3" width="2" height="1" fill="#3ddc84" />
+          </svg>
+          <span>Plugins</span>
+        </a>
+        <nav aria-label="Principale">
+          <a href={url('/#plugins')}>Plugin</a>
+          <a href={url('/#about')}>Chi sono</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>© {new Date().getFullYear()} · Non affiliato a Mojang Studios o Microsoft. Minecraft è un marchio di Mojang AB.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(11, 15, 20, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 12px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-pixel);
+    font-size: 0.8rem;
+    color: var(--text);
+  }
+  .brand:hover { text-decoration: none; }
+  nav { display: flex; gap: 20px; }
+  nav a { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
+  nav a:hover { color: var(--text); text-decoration: none; }
+  .site-footer {
+    margin-top: 96px;
+    padding-block: 32px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
